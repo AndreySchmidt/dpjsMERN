@@ -8,3 +8,5 @@ npm install @reduxjs/toolkit
 npm install react-redux
 
 npm i axios
+
+npm i react-toastify

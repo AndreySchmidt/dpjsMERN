@@ -1,6 +1,32 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../redux/features/auth/authSlice";
+import { toast } from "react-toastify";
 
 export const RegisterPage = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { status } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (status) toast(status);
+  }, [status]);
+
+  const handleSubmit = () => {
+    try {
+      dispatch(registerUser({ username, password }));
+
+      setUsername("");
+      setPassword("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <form
       onSubmit={(e) => e.preventDefault()}
@@ -11,6 +37,8 @@ export const RegisterPage = () => {
         Username:
         <input
           name="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           type="text"
           placeholder="Username"
           className="mt-1 text-black w-full rounded-lg bg-gray-400 border py-1 px-2 text-xs outline-none placeholder:text-gray-700"
@@ -20,6 +48,8 @@ export const RegisterPage = () => {
         Password:
         <input
           name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           type="password"
           placeholder="Password"
           className="mt-1 text-black w-full rounded-lg bg-gray-400 border py-1 px-2 text-xs outline-none placeholder:text-gray-700"
@@ -28,6 +58,7 @@ export const RegisterPage = () => {
       <div className="flex gap-8 justify-center mt-4">
         <button
           type="submit"
+          onClick={handleSubmit}
           className="flex justify-center items-center text-xs text-white bg-gray-600 rounded-sm py-2 px-4"
         >
           Подтвердить
