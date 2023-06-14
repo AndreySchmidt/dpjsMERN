@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../redux/features/auth/authSlice";
+import { checkIsAuth, loginUser } from "../redux/features/auth/authSlice";
 import { toast } from "react-toastify";
 
 export const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  // const navigate = useNavigate();
   const { status } = useSelector((state) => state.auth);
+  const isAuth = useSelector(checkIsAuth);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     try {
@@ -23,8 +24,10 @@ export const LoginPage = () => {
 
   useEffect(() => {
     if (status) toast(status);
-  }, [status]);
-// }, [status, navigate]);
+
+    if (isAuth) navigate("/");
+  }, [status, isAuth, navigate]);
+
   return (
     <form
       onSubmit={(e) => e.preventDefault()}
