@@ -18,3 +18,5 @@ git push -u origin main
 cd server
 npm i express mongoose cors bcryptjs dotenv jsonwebtoken
 npm i nodemon -D
+
+npm i express-fileupload
