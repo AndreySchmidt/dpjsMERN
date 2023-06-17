@@ -42,7 +42,7 @@ export const AddPostPage = () => {
       </label>
 
       <div className="flex object-cover py-2">
-        {image && <img alt="" src={URL.createObjectURL(image)} />}
+        {image && <img alt={image.name} src={URL.createObjectURL(image)} />}
       </div>
 
       <label className="text-xs text-white opacity-70">

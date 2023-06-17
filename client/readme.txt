@@ -10,3 +10,6 @@ npm install react-redux
 npm i axios
 
 npm i react-toastify
+
+npm i react-icons --save
+npm i react-moment
