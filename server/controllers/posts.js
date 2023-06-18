@@ -75,3 +75,20 @@ export const getById = async (req, res) => {
     res.json({ message: error });
   }
 };
+
+// Get My Post
+export const getMyPosts = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+    const list = await Promise.all(
+      user.posts.map((post) => {
+        return Post.findById(post._id);
+      })
+    );
+
+    res.json(list);
+    // res.json({ list });
+  } catch (error) {
+    res.json({ message: error });
+  }
+};
