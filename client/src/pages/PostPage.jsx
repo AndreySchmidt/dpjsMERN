@@ -8,7 +8,7 @@ import {
 } from "react-icons/ai";
 import Moment from "react-moment";
 import axios from "../utils/axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { removePost } from "../redux/features/post/postSlice";
 import { toast } from "react-toastify";
 
@@ -92,7 +92,9 @@ export const PostPage = () => {
               {user?._id === post.author && (
                 <div className="flex gap-3 mt-4">
                   <button className="flex items-center justify-center gap-2 text-white opacity-50">
-                    <AiTwotoneEdit />
+                    <Link to={`/${params.id}/edit`}>
+                      <AiTwotoneEdit />
+                    </Link>
                   </button>
                   <button
                     onClick={removePostHandler}

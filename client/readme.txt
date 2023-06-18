@@ -13,3 +13,6 @@ npm i react-toastify
 
 npm i react-icons --save
 npm i react-moment
+
+npm i -D @tailwindcss/line-clamp
+
