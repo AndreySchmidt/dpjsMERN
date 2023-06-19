@@ -6,6 +6,7 @@ import fileUpload from "express-fileupload";
 
 import authRoute from "./routes/auth.js";
 import postRoute from "./routes/posts.js";
+import commentRoute from "./routes/comment.js";
 
 const app = express();
 dotenv.config();
@@ -24,6 +25,7 @@ app.use(express.json());
 // Routes
 app.use("/api/auth", authRoute);
 app.use("/api/post", postRoute);
+app.use("/api/comments", commentRoute);
 
 // app.get("/", (req, res) => {
 //   return res.json({ message: "Home" });
