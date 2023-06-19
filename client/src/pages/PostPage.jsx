@@ -11,14 +11,21 @@ import axios from "../utils/axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { removePost } from "../redux/features/post/postSlice";
 import { toast } from "react-toastify";
-import { createComment } from "../redux/features/comment/commentSlice";
+import {
+  createComment,
+  getPostComments,
+} from "../redux/features/comment/commentSlice";
+import { CommentItem } from "../components/CommentItem";
 
 export const PostPage = () => {
   const params = useParams();
   const dispatch = useDispatch();
+
   const [post, setPost] = useState(null);
   const [comment, setComment] = useState("");
+
   const { user } = useSelector((state) => state.auth);
+  const { comments } = useSelector((state) => state.comments);
 
   const navigate = useNavigate();
 
@@ -30,6 +37,18 @@ export const PostPage = () => {
   useEffect(() => {
     fetchPost();
   }, [fetchPost]);
+
+  const fetchComments = useCallback(async () => {
+    try {
+      dispatch(getPostComments(params.id));
+    } catch (error) {
+      console.log(error);
+    }
+  }, [params.id, dispatch]);
+
+  useEffect(() => {
+    fetchComments();
+  }, [fetchComments]);
 
   const removePostHandler = () => {
     try {
@@ -136,6 +155,9 @@ export const PostPage = () => {
               Отправить
             </button>
           </form>
+          {comments?.map((cmt) => (
+            <CommentItem key={cmt._id} cmt={cmt} />
+          ))}
         </div>
       </div>
     </div>
